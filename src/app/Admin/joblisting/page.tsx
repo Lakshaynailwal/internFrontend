@@ -16,14 +16,7 @@ export default function Page(){
 
 const Search = ()=>{
     const [input , setInput] = useRecoilState(searchInputState); //triggers fitered search
-    const [filterList , setFilterList] = useRecoilState(jobSearchResult); //setting filter list as api output
-    // refetching on changing the input and filterlist
-    useEffect(()=>{
-        fetch(`https://rest-api-lakshay.vercel.app/jobs?filter=${input}`).then(async(res)=>{
-            const response = await res.json();
-            setFilterList(response.data);
-        })
-    },[input,setFilterList])
+
     return(
        
         <div className="flex min-h-screen min-w-screen border-b">
