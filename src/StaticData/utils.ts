@@ -93,3 +93,6 @@ export const adminSideItem : {
         id : -2
     }
 ]
+
+export const URL = "https://rest-api-lakshay.vercel.app";
+// http://localhost:4000

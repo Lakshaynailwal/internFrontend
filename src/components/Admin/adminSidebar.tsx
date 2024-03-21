@@ -6,7 +6,7 @@ import { useState } from "react";
 
 // sidebar for admin panel
 export const Sidebar = ()=>{
-    const [flag , setFlag] = useState(true); //to trigger ham icon to display sidebar
+    const [flag , setFlag] = useState(false); //to trigger ham icon to display sidebar
     return(
         <>  
             <div className={` ${flag ? "w-60 backdrop-blur-md absolute h-screen" : "w-20 md:w-96 "} md:relative p-2 sm:p-7  flex flex-col  left-0 bg-white gap-5  border-r min-h-side`}>
