@@ -1,6 +1,6 @@
 import { Job } from "@/interface/interface";
 import { useRecoilState } from "recoil";
-import { AdminjobModelState , jobId, jobSearchResult } from "@/state/state";
+import { AdminjobModelState , jobId, jobSearchResult, updatedState } from "@/state/state";
 import Image from "next/image";
 
 export const AdminJobBox:React.FC<{jobDesc:Job}> = ({jobDesc})=>{
@@ -10,7 +10,7 @@ export const AdminJobBox:React.FC<{jobDesc:Job}> = ({jobDesc})=>{
     // setting the current job id
     const [jobid , setJobid] = useRecoilState(jobId);
     // setting new records of available jobs based on filters
-    const [newjobList , setNewJobList] = useRecoilState(jobSearchResult);
+    const [newUpState , setnewUpState] = useRecoilState(updatedState);
     
     //rendering the job profile
     return(
@@ -27,11 +27,6 @@ export const AdminJobBox:React.FC<{jobDesc:Job}> = ({jobDesc})=>{
                 setJobid(jobDesc._id);
             }} src="/update.png" alt="" width={30} height={30}/>
                 <Image onClick={()=>{
-                    
-                    // removing from current list
-                    const newList = newjobList.filter((item:Job)=>{
-                        item._id != jobDesc._id
-                    })
                     // sending a delete req to api  
                     fetch("https://rest-api-lakshay.vercel.app/admin/delete",{
                         method:'POST',
@@ -39,7 +34,7 @@ export const AdminJobBox:React.FC<{jobDesc:Job}> = ({jobDesc})=>{
                         body: JSON.stringify({_id : jobDesc._id})
                     }).then(async(res)=>{
                         const response = await res.json();
-                        setNewJobList(newList)
+                        setnewUpState(p=>!p);
                         // alerting the user
                         alert(response.msg);
                     })

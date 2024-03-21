@@ -36,3 +36,9 @@ export const AdminjobModelState = atom({
     key: "AdminjobModelState",
     default : false
 })
+
+//to update joblist
+export const updatedState = atom({
+    key: "updatedState",
+    default : false
+})

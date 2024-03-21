@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { AdminjobModelState, jobId, jobSearchResult } from "@/state/state";
+import { AdminjobModelState,updatedState, jobId, jobSearchResult } from "@/state/state";
 import { Job } from "@/interface/interface";
 
 export const UpdateModel: React.FC<{jobitem : Job}> = ({jobitem})=>{
@@ -15,8 +15,9 @@ export const UpdateModel: React.FC<{jobitem : Job}> = ({jobitem})=>{
     const [stipend , setStipend] = useState(jobitem.stipend);
     const [jobIcon , setJobIcon] = useState(jobitem.jobIcon.toString());
     
+    const [joblist , setJobList] = useRecoilState(jobSearchResult);
     const classes = "bg-slate-100 md:text-base text-xs w-full mx-auto p-2 rounded-xl text-grey font-bold"
-    
+    const [newUpState , setnewUpState] = useRecoilState(updatedState);    
     return(
         <div className="fixed flex justify-center items-center top-0 left-0 bottom-0 right-0 bg-op">
             <div className="lg:w-1/2 w-3/4 min-h-model border flex flex-col justify-between p-7 gap-4 bg-white" >
@@ -45,6 +46,7 @@ export const UpdateModel: React.FC<{jobitem : Job}> = ({jobitem})=>{
                         }).then(async(res)=>{
                             const response = await res.json();
                             setModel(p=>!p);
+                            setnewUpState(p=>!p);
                             // alerting the user
                             alert(response.msg)
                         })

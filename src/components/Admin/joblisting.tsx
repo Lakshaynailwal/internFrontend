@@ -2,7 +2,7 @@
 import { useEffect ,useState } from "react"
 import { AdminJobBox } from "./adminJobbox"
 import { useRecoilState, useRecoilValue } from "recoil"
-import { jobSearchResult , searchInputState, TotelCountState } from "@/state/state"
+import { jobSearchResult , searchInputState, TotelCountState, updatedState } from "@/state/state"
 import { Job } from "@/interface/interface"
 import { UpdateFlagModel } from "./update/updateFlagModel"
 import { Skeleton } from "../skeleton/skeleton"
@@ -14,6 +14,7 @@ export const Joblist = ()=>{
     const [prev, setPrev] = useState(false);
     const [page , setPage] = useState(1);
     const [total , setTotal] = useRecoilState(TotelCountState);
+    const upState = useRecoilValue(updatedState)
     //setting the list of jobs got from api
     const [joblist , setJobList] = useRecoilState(jobSearchResult);
     // filtering the data
@@ -29,7 +30,7 @@ export const Joblist = ()=>{
         setTotal(response.total);
         setLength(response.length);
       })
-    },[page , filter ,setJobList , setTotal])
+    },[page, upState , filter ,setJobList , setTotal])
 
     return(
         <div className="sm:w-4/5 w-full  px-7 md:py-7 mx-auto  gap-5 flex flex-col">
